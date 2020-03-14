@@ -146,7 +146,7 @@ public class FlutterShareSocialPlugin implements MethodCallHandler, PluginRegist
     shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
         @Override
         public void onSuccess(Sharer.Result result) {
-            channel.invokeMethod("onSuccess", null);
+            channel.invokeMethod("onSuccess", result.getPostId());
             Log.d("FlutterShareSocialPlugin", "Sharing successfully done.");
         }
 
@@ -158,7 +158,7 @@ public class FlutterShareSocialPlugin implements MethodCallHandler, PluginRegist
 
         @Override
         public void onError(FacebookException error) {
-            channel.invokeMethod("onError", error.getMessage());
+            channel.invokeMethod("onError", error.getLocalizedMessage());
             Log.d("FlutterShareSocialPlugin", "Sharing error occurred.");
         }
     });

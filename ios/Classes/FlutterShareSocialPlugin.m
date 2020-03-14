@@ -149,7 +149,11 @@
 }
 
 - (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results{
-    [_channel invokeMethod:@"onSuccess" arguments:nil];
+    if (results.count == 0) {
+        [_channel invokeMethod:@"onSuccess" arguments:nil];
+    } else {
+        [_channel invokeMethod:@"onSuccess" arguments:results];
+    }
     NSLog(@"Sharing completed successfully");
 }
 
