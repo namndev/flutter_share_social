@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'FBSDKCoreKit', '5.10.0'
-  s.dependency 'FBSDKShareKit', '5.10.0'
+  s.dependency 'FBSDKCoreKit'
+  s.dependency 'FBSDKShareKit'
 
   s.platform = :ios, '9.0'
 
