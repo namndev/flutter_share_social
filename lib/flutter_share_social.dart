@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 import 'package:flutter/services.dart';
 
 typedef Future<dynamic> OnCancelHandler();
@@ -10,87 +9,117 @@ class FlutterShareSocial {
   static const MethodChannel _channel =
       const MethodChannel('flutter_share_social');
 
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
+  static Future<String?> get platformVersion async {
+    final String? version = await _channel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
 
-  static Future<void> instagramShare(
-      {String type = 'image/*', @required String path}) async {
-    return _channel.invokeMethod('instagramShare', <String, dynamic>{
+  static Future<String?> instagramShare(
+      {String type = 'image/*', required String path}) async {
+    return _channel.invokeMethod<String>('instagramShare', <String, dynamic>{
       'type': type,
       'path': path,
     });
   }
 
-  static Future<void> facebookShare({
-    String caption,
-    @required String path,
-    OnSuccessHandler onSuccess,
-    OnCancelHandler onCancel,
-    OnErrorHandler onError,
+  static Future<String?> facebookShare({
+    String? caption,
+    required String path,
+    OnSuccessHandler? onSuccess,
+    OnCancelHandler? onCancel,
+    OnErrorHandler? onError,
   }) async {
-    _channel.setMethodCallHandler((call) {
+    _channel.setMethodCallHandler((MethodCall call) async{
       switch (call.method) {
-        case "onSuccess":
-          return onSuccess(call.arguments);
+         case "onSuccess":
+          if (onSuccess != null){
+            return onSuccess(call.arguments);
+          }
+          break;
         case "onCancel":
-          return onCancel();
+          if (onCancel != null) {
+            return onCancel();
+          }
+          break;
         case "onError":
+        if (onError != null) {
           return onError(call.arguments);
+        }
+        break;
         default:
           throw UnsupportedError("Unknown method called");
       }
+      return call.arguments;
     });
-    return _channel.invokeMethod('facebookShare', <String, dynamic>{
+    return _channel.invokeMethod<String>('facebookShare', <String, dynamic>{
       'caption': caption,
       'path': path,
     });
   }
 
-  static Future<void> facebookSharePhotos({
-    @required List<String> paths,
-    OnSuccessHandler onSuccess,
-    OnCancelHandler onCancel,
-    OnErrorHandler onError,
+  static Future<String?> facebookSharePhotos({
+    required List<String> paths,
+    OnSuccessHandler? onSuccess,
+    OnCancelHandler? onCancel,
+    OnErrorHandler? onError,
   }) async {
-    _channel.setMethodCallHandler((call) {
+    _channel.setMethodCallHandler((MethodCall call) async {
       switch (call.method) {
         case "onSuccess":
-          return onSuccess(call.arguments);
+          if (onSuccess != null){
+            return onSuccess(call.arguments);
+          }
+          break;
         case "onCancel":
-          return onCancel();
+          if (onCancel != null) {
+            return onCancel();
+          }
+          break;
         case "onError":
+        if (onError != null) {
           return onError(call.arguments);
+        }
+        break;
         default:
           throw UnsupportedError("Unknown method called");
       }
+      return call.arguments;
     });
-    return _channel.invokeMethod('facebookSharePhotos', <String, dynamic>{
+    return _channel.invokeMethod<String>('facebookSharePhotos', <String, dynamic>{
       'paths': paths,
     });
   }
 
-  static Future<dynamic> facebookShareLink({
-    String quote,
-    @required String url,
-    OnSuccessHandler onSuccess,
-    OnCancelHandler onCancel,
-    OnErrorHandler onError,
+  static Future<String?> facebookShareLink({
+    String? quote,
+    required String url,
+    OnSuccessHandler? onSuccess,
+    OnCancelHandler? onCancel,
+    OnErrorHandler? onError,
   }) async {
-    _channel.setMethodCallHandler((call) {
+    _channel.setMethodCallHandler((MethodCall call) async{
       switch (call.method) {
         case "onSuccess":
-          return onSuccess(call.arguments);
+          if (onSuccess != null){
+            return onSuccess(call.arguments);
+          }
+          break;
         case "onCancel":
-          return onCancel();
+          if (onCancel != null) {
+            return onCancel();
+          }
+          break;
         case "onError":
+        if (onError != null) {
           return onError(call.arguments);
+        }
+        break;
         default:
           throw UnsupportedError("Unknown method called");
       }
+      return call.arguments;
     });
-    return _channel.invokeMethod('facebookShareLink', <String, dynamic>{
+    return _channel.invokeMethod<String>('facebookShareLink', <String, dynamic>{
       'quote': quote,
       'url': url,
     });
