@@ -10,9 +10,7 @@ Also some minimal Android & iOS specific configuration must be done, otherise yo
 ### On your Flutter project
 
 flutter_share_social:
-    git:
-      url: git://github.com/namndev/flutter_share_social.git
-      ref: v0.1
+    flutter_share_social: ^0.2.1
 
 ### Android
 
